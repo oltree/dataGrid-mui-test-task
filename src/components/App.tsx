@@ -1,5 +1,9 @@
 import { useState, useCallback } from 'react';
-import { DataGrid, GridCellParams } from '@mui/x-data-grid';
+import {
+  DataGrid,
+  GridCellParams,
+  GridRowHeightParams,
+} from '@mui/x-data-grid';
 import { Box } from '@mui/material';
 
 import { ModalContent } from './Modal';
@@ -8,7 +12,7 @@ import { columns, rows } from '../data/dataGrid';
 
 const style = {
   width: '37vw',
-  height: '100vh',
+  height: '88vh',
   position: 'absolute' as 'absolute',
   top: '50%',
   left: '50%',
@@ -29,7 +33,15 @@ const App = () => {
   const handleCloseModal = useCallback(() => setOpenModal(false), []);
 
   return (
-    <Box sx={{ ...style }}>
+    <Box
+      sx={{
+        ...style,
+        '& .image': {
+          minHeight: 100,
+          maxHeight: 300,
+        },
+      }}
+    >
       <DataGrid
         rows={rows}
         columns={columns}
@@ -37,6 +49,13 @@ const App = () => {
         onCellClick={handleClick}
         disableRowSelectionOnClick
         getRowHeight={() => 'auto'}
+        getCellClassName={(params: GridCellParams) => {
+          if (params.field === 'image' || params.value == null) {
+            return 'image';
+          }
+
+          return '';
+        }}
         sortingOrder={['asc', 'desc']}
       />
       <ModalContent
