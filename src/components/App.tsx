@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { DataGrid, GridRowParams, GridRowHeightParams } from '@mui/x-data-grid';
+import { DataGrid, GridCellParams } from '@mui/x-data-grid';
 import { Box } from '@mui/material';
 
 import { ModalContent } from './Modal';
@@ -19,12 +19,8 @@ const App = () => {
   const [openModal, setOpenModal] = useState(false);
   const [modalImageUrl, setModalImageUrl] = useState('');
 
-  const handleRowClick = (params: GridRowParams) => {
-    const foundColomn = params.columns.find(
-      ({ headerName }) => headerName === 'Image'
-    );
-
-    if (foundColomn) {
+  const handleClick = (params: GridCellParams) => {
+    if (params.field === 'image') {
       setModalImageUrl(params.row.image);
       setOpenModal(true);
     }
@@ -38,7 +34,7 @@ const App = () => {
         rows={rows}
         columns={columns}
         autoHeight={false}
-        onRowClick={handleRowClick}
+        onCellClick={handleClick}
         disableRowSelectionOnClick
         getRowHeight={() => 'auto'}
         sortingOrder={['asc', 'desc']}
