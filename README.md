@@ -1,6 +1,6 @@
 # Project Description
 
-This project is a table with mocks.
+This application is a test task to create a test table with mocks data.
 
 ## `Functionality`
 
